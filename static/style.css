@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  font-family: "Work Sans", serif;
+}
+@keyframes fadeInLeft {
+    0% { opacity: 0; transform: translateX(-20px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  
+  /* Smooth fade-in animation for right section */
+  @keyframes fadeInRight {
+    0% { opacity: 0; transform: translateX(20px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Apply animations */
+  .animate-fadeInLeft {
+    animation: fadeInLeft 1s ease-out forwards;
+  }
+
+  .animate-fadeInRight {
+    animation: fadeInRight 1s ease-out forwards;
+  }

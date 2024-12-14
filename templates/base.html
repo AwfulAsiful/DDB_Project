@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block head %}
+    <title>KicksKart</title>
+    <link
+      rel="shortcut icon"
+      href="{{'Images/KicksKart.png' | static_url}}"
+      type="image/x-icon"
+    />
+
+    <link rel="stylesheet" href="/static/style.css" />
+    <!-- Font Awesome CDN -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% endblock %}
+  </head>
+  <body class="max-w-[120rem] mx-auto">
+    {% block navbar %}
+    <header>
+      <!-- navbar starts -->
+      <nav class="nav-container flex justify-between items-center px-10 py-3">
+        <div class="logo max-w-[10rem] hover:scale-105">
+          <img src="{{'/Images/KicksKart.png' | static_url}}" alt="" />
+        </div>
+        <!-- nav links hidden in the smaller devices and only visible in the medium and larger devices -->
+        <ul class="nav-links text-[1.25rem] hidden md:flex md:gap-x-6">
+          <!-- Home Link -->
+          <li>
+            <a
+              href="/"
+              class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full hover:scale-105"
+            >
+              Home
+            </a>
+          </li>
+
+          <!-- Products Link -->
+          <li>
+            <a
+              href="/products"
+              class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full hover:scale-105"
+            >
+              Products
+            </a>
+          </li>
+
+          <!-- About Us Link -->
+          <li>
+            <a
+              href="/aboutus"
+              class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full hover:scale-105"
+            >
+              About Us
+            </a>
+          </li>
+
+          <!-- Contact Us Link -->
+          <li>
+            <a
+              href="/contactus"
+              class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full hover:scale-105"
+            >
+              Contact Us
+            </a>
+          </li>
+        </ul>
+
+        <!-- nav link ends -->
+        <!-- Button to Open Sidebar -->
+        <button id="openSidebar" class="text-[3rem] text-black md:hidden">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <!-- search,cart,user(login) icons which are only visible in larger devices -->
+        <div class="nav-icons text-[2rem] hidden md:flex md:gap-x-6">
+          <!-- Search Icon -->
+          <i
+            class="fa-solid fa-magnifying-glass transition-transform duration-300 ease-in-out hover:scale-125 hover:text-amber-500"
+          ></i>
+
+          <!-- Cart Icon -->
+          <i
+            class="fa-solid fa-cart-shopping transition-transform duration-300 ease-in-out hover:rotate-12 hover:text-amber-500"
+          ></i>
+
+          <a
+            href="/login"
+            class="fa-regular fa-user transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:text-amber-500"
+          >
+            <!-- User Icon -->
+            <i class=""></i>
+          </a>
+        </div>
+      </nav>
+
+      <div class="relative md:hidden">
+        <!-- Sidebar -->
+        <nav
+          id="sideNav"
+          class="fixed top-0 left-0 h-full w-64 bg-gray-900 text-white transform -translate-x-full transition-transform duration-300 z-40"
+        >
+          <!-- Close Button -->
+          <button id="closeSidebar" class="absolute top-4 right-4 text-2xl">
+            <i class="fa-solid fa-times"></i>
+          </button>
+
+          <ul class="side-navlinks text-[1.5rem] px-6 mt-16 space-y-6">
+            <!-- Links with Icons -->
+            <li>
+              <a
+                href="/"
+                class="flex items-center gap-4 relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full"
+              >
+                <i class="fa-solid fa-house"></i> Home
+              </a>
+            </li>
+            <li>
+              <a
+                href="/products"
+                class="flex items-center gap-4 relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full"
+              >
+                <i class="fa-solid fa-tags"></i> Products
+              </a>
+            </li>
+            <li>
+              <a
+                href="/aboutus"
+                class="flex items-center gap-4 relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full"
+              >
+                <i class="fa-solid fa-info-circle"></i> About Us
+              </a>
+            </li>
+            <li>
+              <a
+                href="/contactus"
+                class="flex items-center gap-4 relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full"
+              >
+                <i class="fa-solid fa-phone"></i> Contact Us
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-4 relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i> Search
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-4 relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full"
+              >
+                <i class="fa-solid fa-cart-shopping"></i> Cart
+              </a>
+            </li>
+            <li>
+              <a
+                href="/login"
+                class="flex items-center gap-4 relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full"
+              >
+                <i class="fa-solid fa-user"></i> Login
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Overlay for Clicking Outside -->
+        <div
+          id="overlay"
+          class="fixed inset-0 bg-black opacity-50 hidden z-30"
+        ></div>
+      </div>
+
+      <!-- side navbar ends -->
+
+      <!-- navbar ends -->
+    </header>
+    {% endblock navbar %} {% block footer %}
+    <footer class="bg-gray-800 text-gray-200 py-8 fixed bottom-0 w-full">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Top Section -->
+        <div
+          class="flex flex-col md:flex-row justify-between items-start md:items-center"
+        >
+          <!-- Logo Section -->
+          <div class="logo max-w-[10rem] hover:scale-105">
+            <img src="{{'/Images/KicksKart_white_bg_removed.png' | static_url}}" alt="" />
+          </div>
+
+          <!-- Navigation Links -->
+          <nav class="flex flex-col md:flex-row gap-y-4 md:gap-x-8">
+            <a href="#" class="hover:text-amber-500 transition">Home</a>
+            <a href="#" class="hover:text-amber-500 transition">Products</a>
+            <a href="#" class="hover:text-amber-500 transition">About Us</a>
+            <a href="#" class="hover:text-amber-500 transition">Contact Us</a>
+          </nav>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-gray-600 my-6"></div>
+
+        <!-- Bottom Section -->
+        <div
+          class="flex flex-col md:flex-row justify-between items-start md:items-center"
+        >
+          <!-- Contact Info -->
+          <div class="text-sm space-y-2">
+            <p>📍 Address: 123 Kicks Street, Sneaker City</p>
+            <p>📞 Phone: +123 456 7890</p>
+            <p>✉️ Email: support@kickskart.com</p>
+          </div>
+
+          <!-- Social Media Links -->
+          <div class="mt-4 md:mt-0 flex space-x-4">
+            <a href="#" class="text-amber-500 hover:text-amber-400 transition">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-amber-500 hover:text-amber-400 transition">
+              <i class="fa-brands fa-twitter"></i>
+            </a>
+            <a href="#" class="text-amber-500 hover:text-amber-400 transition">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="#" class="text-amber-500 hover:text-amber-400 transition">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center mt-6 text-sm text-gray-500">
+          &copy; 2024 KicksKart. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    {% endblock footer %}
+
+    <script src="/static/script.js"></script>
+  </body>
+</html>
