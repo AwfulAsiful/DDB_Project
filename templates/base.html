@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
     <title>KicksKart</title>
     <link
       rel="shortcut icon"
-      href="{{'Images/KicksKart.png' | static_url}}"
+      href="{{'Images/KicksKart_white_bg_removed.png' | static_url}}"
       type="image/x-icon"
     />
 
@@ -21,12 +21,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-
-    <script src="https://cdn.tailwindcss.com"></script>
-   
   </head>
   <body class="max-w-[120rem] mx-auto">
-  
     <header>
       <!-- navbar starts -->
       <nav class="nav-container flex justify-between items-center px-10 py-3">
@@ -45,6 +41,7 @@
             </a>
           </li>
 
+          {% block navlinks_changed %}
           <!-- Products Link -->
           <li>
             <a
@@ -74,6 +71,7 @@
               Contact Us
             </a>
           </li>
+          {% endblock navlinks_changed %}
         </ul>
 
         <!-- nav link ends -->
@@ -187,9 +185,7 @@
 
       <!-- navbar ends -->
     </header>
-    {% block content %}
-      
-    {% endblock content %}
+    {% block content %} {% endblock content %}
     <footer class="bg-gray-800 text-gray-200 py-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Top Section -->
@@ -198,7 +194,10 @@
         >
           <!-- Logo Section -->
           <div class="logo max-w-[10rem] hover:scale-105">
-            <img src="{{'/Images/KicksKart_white_bg_removed.png' | static_url}}" alt="" />
+            <img
+              src="{{'/Images/KicksKart_white_bg_removed.png' | static_url}}"
+              alt=""
+            />
           </div>
 
           <!-- Navigation Links -->
@@ -248,8 +247,7 @@
       </div>
     </footer>
 
-    
-
     <script src="/static/script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
   </body>
 </html>
