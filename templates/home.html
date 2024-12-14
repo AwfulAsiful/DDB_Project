@@ -1,1 +1,60 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
+{% block content %}
+<div class="banner flex flex-col gap-y-6 justify-between items-center p-8 bg-gray-100 md:flex-row">
+  <!-- Text Section -->
+  <div class="text-container max-w-lg">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-semibold mb-6 leading-tight">
+        Step into <span class="text-amber-600">Comfort</span>, <span class="text-amber-600">Style</span>, and 
+        <span class="text-amber-600">Confidence</span>
+      </h1>
+      
+    <p class="text-lg text-gray-600">
+        Discover the perfect pair that moves with you—whether for work, play, or adventure. Your journey begins with the right footwear!
+    </p>
+  </div>
+
+  <!-- Image Section (Bento Grid) -->
+  <div class="images-container grid grid-cols-3 gap-4 max-w-2xl">
+    <div
+      class="image-box col-span-2 row-span-1 overflow-hidden rounded-xl shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+    >
+      <img
+        src="{{'Images/banner-img-1.jpg' | static_url}}"
+        alt="Image 1"
+        class="w-full h-full object-cover"
+      />
+    </div>
+    <div
+      class="image-box col-span-1 row-span-2 overflow-hidden rounded-xl shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+    >
+      <img
+        src="{{'Images/the-dk-photography-oXPhwpiEELQ-unsplash.jpg' | static_url}}"
+        alt="Image 2"
+        class="w-full h-full object-cover"
+      />
+    </div>
+    <div
+      class="image-box col-span-1 row-span-1 overflow-hidden rounded-xl shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+    >
+      <img
+        src="{{'Images/luis-felipe-lins-J2-wAQDckus-unsplash.jpg' | static_url}}"
+        alt="Image 3"
+        class="w-full h-full object-cover"
+      />
+    </div>
+    <div
+      class="image-box col-span-1 row-span-1 overflow-hidden rounded-xl shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+    >
+      <img
+        src="{{'Images/banner-img-1.jpg' | static_url}}"
+        alt="Image 4"
+        class="w-full h-full object-cover"
+      />
+    </div>
+    
+  </div>
+</div>
+
+
+
+{% endblock content %}
