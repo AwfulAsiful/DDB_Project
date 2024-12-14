@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% block head %}
+  
     <title>KicksKart</title>
     <link
       rel="shortcut icon"
@@ -23,10 +23,10 @@
     />
 
     <script src="https://cdn.tailwindcss.com"></script>
-    {% endblock %}
+   
   </head>
   <body class="max-w-[120rem] mx-auto">
-    {% block navbar %}
+  
     <header>
       <!-- navbar starts -->
       <nav class="nav-container flex justify-between items-center px-10 py-3">
@@ -187,8 +187,10 @@
 
       <!-- navbar ends -->
     </header>
-    {% endblock navbar %} {% block footer %}
-    <footer class="bg-gray-800 text-gray-200 py-8 fixed bottom-0 w-full">
+    {% block content %}
+      
+    {% endblock content %}
+    <footer class="bg-gray-800 text-gray-200 py-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Top Section -->
         <div
@@ -246,7 +248,7 @@
       </div>
     </footer>
 
-    {% endblock footer %}
+    
 
     <script src="/static/script.js"></script>
   </body>

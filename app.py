@@ -1,13 +1,18 @@
 from flask import Flask,render_template,url_for
 app=Flask(__name__)
 
+
+
 @app.template_filter('static_url')
 def static_url(filename):
     return url_for('static', filename=filename)
 
 @app.route('/')
-def test():
-    return render_template('base.html')
+def index():
+    return render_template('home.html')
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
 @app.route('/products')
 def product():
