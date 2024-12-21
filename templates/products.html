@@ -1,134 +1,123 @@
 {% extends 'base.html' %} {% block content %}
-<div class="flex flex-row gap-6 px-4 py-6">
-  <!-- Filter Sidebar -->
-  <div class="filter-sidebar w-1/4 bg-gray-100 p-4 rounded-lg shadow-md">
-    <h3 class="text-lg font-bold mb-4">Filter By</h3>
-
-    <!-- Gender Filter -->
-    <div class="gender-filter mb-6">
-      <h4 class="text-md font-semibold mb-2">Gender</h4>
-      <form method="GET" action="/products">
-        <div class="flex items-center mb-2">
-          <input type="radio" id="men" name="gender" value="Men" class="mr-2" {%
-          if request.args.get('gender') == 'Men' %}checked{% endif %} />
-          <label for="men" class="text-sm">Men</label>
+<div class="main-container flex flex-col md:flex-row md:">
+    <form method="get" class="filter-form flex flex-col space-y-4 bg-gray-100 p-4 rounded-lg shadow-md">
+        <!-- Gender Filter -->
+        <div class="filter-group">
+          <label for="gender" class="font-bold text-lg">Filter by Gender:</label>
+          <select name="gender" id="gender" class="w-full p-2 border rounded-md">
+            <option value="">All</option>
+            <option value="Men" {% if request.args.get('gender') == 'Men' %}selected{% endif %}>Men</option>
+            <option value="Women" {% if request.args.get('gender') == 'Women' %}selected{% endif %}>Women</option>
+          </select>
         </div>
-        <div class="flex items-center mb-2">
-          <input type="radio" id="women" name="gender" value="Women"
-          class="mr-2" {% if request.args.get('gender') == 'Women' %}checked{%
-          endif %} />
-          <label for="women" class="text-sm">Women</label>
-        </div>
-        <div class="flex items-center mb-2">
-          <input type="radio" id="all" name="gender" value="" class="mr-2" {% if
-          not request.args.get('gender') %}checked{% endif %} />
-          <label for="all" class="text-sm">All</label>
-        </div>
-
+      
         <!-- Subcategory Filter -->
-        <h4 class="text-md font-semibold mt-4 mb-2">Subcategory</h4>
-        <div class="flex items-center mb-2">
-          <input type="checkbox" id="flip-flops" name="subcategory" value="Flip
-          Flops" class="mr-2" {% if 'Flip Flops' in
-          request.args.getlist('subcategory') %}checked{% endif %} />
-          <label for="flip-flops" class="text-sm">Flip Flops</label>
+        <div class="filter-group">
+          <label class="font-bold text-lg">Filter by Subcategory:</label>
+          <div class="flex flex-wrap gap-2">
+            {% for subcategory in ['Flip Flops', 'Sandals', 'Shoes'] %}
+            <label class="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                name="subcategory"
+                value="{{ subcategory }}"
+                {% if subcategory in request.args.getlist('subcategory') %}checked{% endif %}
+                class="rounded border-gray-300 focus:ring-amber-500"
+              />
+              <span>{{ subcategory }}</span>
+            </label>
+            {% endfor %}
+          </div>
         </div>
-        <div class="flex items-center mb-2">
-          <input type="checkbox" id="sandals" name="subcategory" value="Sandals"
-          class="mr-2" {% if 'Sandals' in request.args.getlist('subcategory')
-          %}checked{% endif %} />
-          <label for="sandals" class="text-sm">Sandals</label>
-        </div>
-        <div class="flex items-center mb-2">
-          <input type="checkbox" id="shoes" name="subcategory" value="Shoes"
-          class="mr-2" {% if 'Shoes' in request.args.getlist('subcategory')
-          %}checked{% endif %} />
-          <label for="shoes" class="text-sm">Shoes</label>
-        </div>
-
+      
+        <!-- Submit Button -->
         <button
           type="submit"
-          class="mt-4 w-full bg-amber-500 text-white font-semibold py-2 rounded-lg transition-colors duration-300 hover:bg-amber-600"
+          class="w-full bg-amber-500 text-white font-bold py-2 px-4 rounded-md hover:bg-amber-600"
         >
           Apply Filters
         </button>
       </form>
-    </div>
-  </div>
-
-  <!-- Products Grid -->
-  <div
-    class="products-grid w-3/4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center"
-  >
-    {% for product in products.items %}
-    <div
-      class="product-card w-full max-w-xs border-2 border-gray-300 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300"
-    >
-      <div class="card-img relative">
-        <img
-          src="{{ product.image_url }}"
-          alt="{{ product.product_title }}"
-          class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500"
-        />
+      
+    
+      <!-- Products Grid -->
+      <div
+        class="products-grid w-full my-6 grid grid-cols-1 gap-4 place-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 "
+      >
+        {% for product in products.items %}
         <div
-          class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent opacity-40"
-        ></div>
-      </div>
-      <div class="card-title p-6 bg-white">
-        <h2 class="text-[1.25rem] font-bold text-gray-800">
-          {{ product.product_title }}
-        </h2>
-        <h3 class="text-[1rem] font-medium text-gray-600">
-          {{ product.gender }}
-        </h3>
-        <h4 class="text-[0.9rem] font-light text-gray-500">
-          {{ product.subcategory }}
-        </h4>
-        <a
-          href="#"
-          class="mt-4 inline-block px-6 py-2 bg-amber-500 text-white font-semibold text-center rounded-full transition-colors duration-300 hover:bg-amber-600"
+          class="product-card w-full max-w-xs flex flex-col border-2 border-gray-300 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300"
         >
-          Show Details
-        </a>
+          <div class="card-img relative">
+            <img
+              src="{{ product.image_url }}"
+              alt="{{ product.product_title }}"
+              class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500"
+            />
+            <div
+              class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent opacity-40"
+            ></div>
+          </div>
+          <div class="card-title p-6 bg-white flex flex-col items-start">
+            <h2 class="text-[1.25rem] font-bold text-gray-800">
+              {{ product.product_title }}
+            </h2>
+            <h3 class="text-[1rem] font-medium text-gray-600">
+              {{ product.gender }}
+            </h3>
+            <h4 class="text-[0.9rem] font-light text-gray-500">
+              {{ product.subcategory }}
+            </h4>
+            <a
+              href="#"
+              class="mt-4 inline-block px-6 py-2 bg-amber-500 text-white font-semibold text-center rounded-full transition-colors duration-300 hover:bg-amber-600"
+            >
+              Show Details
+            </a>
+          </div>
+        </div>
+        {% endfor %}
       </div>
     </div>
-    {% endfor %}
-  </div>
 </div>
 
-<!-- Show More Button -->
-<div
-  class="pagination-container flex justify-center items-center mt-8 space-x-4"
->
-  {% if products.has_prev %}
-  <a
-    href="{{ url_for('products', page=products.prev_num, gender=request.args.get('gender'), subcategory=request.args.getlist('subcategory')) }}"
-    class="bg-gray-400 text-black font-bold py-2 px-4 rounded-xl hover:bg-gray-500"
-  >
-    Previous
-  </a>
-  {% endif %} {% for page_num in products.iter_pages(left_edge=1, right_edge=1,
-  left_current=2, right_current=2) %} {% if page_num %} {% if page_num ==
-  products.page %}
-  <span class="bg-amber-500 text-white font-bold py-2 px-4 rounded-xl">
-    {{ page_num }}
-  </span>
-  {% else %}
-  <a
-    href="{{ url_for('products', page=page_num, gender=request.args.get('gender'), subcategory=request.args.getlist('subcategory')) }}"
-    class="bg-gray-400 text-black font-bold py-2 px-4 rounded-xl hover:bg-gray-500"
-  >
-    {{ page_num }}
-  </a>
-  {% endif %} {% else %}
-  <span class="text-gray-400 font-bold px-2">...</span>
-  {% endif %} {% endfor %} {% if products.has_next %}
-  <a
-    href="{{ url_for('products', page=products.next_num, gender=request.args.get('gender'), subcategory=request.args.getlist('subcategory')) }}"
-    class="bg-gray-400 text-black font-bold py-2 px-4 rounded-xl hover:bg-gray-500"
-  >
-    Next
-  </a>
-  {% endif %}
-</div>
+<div class="pagination-container flex justify-center items-center my-8 space-x-4">
+    {% if products.has_prev %}
+    <a
+      href="{{ url_for('products', page=products.prev_num, gender=request.args.get('gender'), subcategory=request.args.getlist('subcategory')) }}"
+      class="bg-gray-400 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-500"
+    >
+      Previous
+    </a>
+    {% endif %}
+  
+    {% for page_num in products.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+    {% if page_num %}
+      {% if page_num == products.page %}
+      <span class="bg-amber-500 text-white font-bold py-2 px-4 rounded-full">
+        {{ page_num }}
+      </span>
+      {% else %}
+      <a
+        href="{{ url_for('products', page=page_num, gender=request.args.get('gender'), subcategory=request.args.getlist('subcategory')) }}"
+        class="bg-gray-400 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-500"
+      >
+        {{ page_num }}
+      </a>
+      {% endif %}
+    {% else %}
+      <span class="text-gray-400 font-bold px-2">...</span>
+    {% endif %}
+    {% endfor %}
+  
+    {% if products.has_next %}
+    <a
+      href="{{ url_for('products', page=products.next_num, gender=request.args.get('gender'), subcategory=request.args.getlist('subcategory')) }}"
+      class="bg-gray-400 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-500"
+    >
+      Next
+    </a>
+    {% endif %}
+  </div>
+  
 {% endblock content %}

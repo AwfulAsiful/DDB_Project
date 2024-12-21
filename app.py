@@ -3,17 +3,17 @@ import sqlite3
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 
-# Initialize the Flask app and SQLAlchemy
+
 app = Flask(__name__)
 
-# Configure the database URI
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Initialize SQLAlchemy
+
 db = SQLAlchemy(app)
 
-# Define the Product model
+
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, nullable=False)
@@ -26,7 +26,7 @@ class Product(db.Model):
     def __repr__(self):
         return f'<Product {self.product_title}>'
 
-# Create the database and the table (if they don't exist)
+
 with app.app_context():
     db.create_all()
 
@@ -46,22 +46,25 @@ def home():
 @app.route('/products')
 def products():
     page = request.args.get('page', 1, type=int)
-    gender = request.args.get('gender')
-    subcategories = request.args.getlist('subcategory')
+    gender = request.args.get('gender', None)
+    subcategories = request.args.getlist('subcategory')  
 
-    # Base query
+    
     query = Product.query
 
-    # Apply filters
+    
     if gender:
         query = query.filter(Product.gender == gender)
+
+    
     if subcategories:
         query = query.filter(Product.subcategory.in_(subcategories))
 
-    # Paginate results
+    
     products = query.paginate(page=page, per_page=12)
 
     return render_template('products.html', products=products)
+
 
 
 @app.route('/login')
